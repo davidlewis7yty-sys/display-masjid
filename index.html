@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Display Masjid - Auto Live YouTube</title>
+    <style>
+        /* Mengatur agar tampilan memenuhi seluruh layar TV */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background-color: black; 
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
+        #container { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <iframe id="displayFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+
+<script>
+    // --- DATA ANDA ---
+    const YOUTUBE_CHANNEL_ID = "UCenPO76mmxnCCPbTV_5qx1A"; 
+    const GOOGLE_SLIDE_URL = "https://docs.google.com/presentation/d/e/2PACX-1vRBcWn8wqXsoRIvRQ5a6j0uLMCmEjVlkvRSWQr1DJc96Uyj2IKlK1nEnrCkmJoDHafsIrfKLmHsW8Ms/pub?start=true&loop=true&delayms=10000";
+    
+    // Link khusus YouTube yang akan selalu mengarah ke Live Streaming jika sedang berlangsung
+    const YOUTUBE_LIVE_URL = `https://www.youtube.com/embed/live_stream?channel=${YOUTUBE_CHANNEL_ID}&autoplay=1&mute=1`;
+
+    const displayFrame = document.getElementById('displayFrame');
+
+    /**
+     * Fungsi untuk mengecek status Live.
+     * Karena kebijakan keamanan browser, cara termudah dan paling stabil 
+     * adalah menggunakan jadwal atau membiarkan YouTube menangani transisinya.
+     */
+    function updateDisplay() {
+        const sekarang = new Date();
+        const hari = sekarang.getDay(); // 5 = Jumat
+        const jam = sekarang.getHours();
+        const menit = sekarang.getMinutes();
+
+        // LOGIKA OTOMATIS:
+        // Contoh: Jika hari JUMAT antara jam 11:40 sampai 13:15, tampilkan YouTube Live.
+        // Di luar waktu itu, tampilkan Google Slide Informasi.
+        if (hari === 5 && (jam === 11 && menit >= 40 || jam === 12 || (jam === 13 && menit <= 15))) {
+            if (displayFrame.src !== YOUTUBE_LIVE_URL) {
+                displayFrame.src = YOUTUBE_LIVE_URL;
+                console.log("Mode: Live Streaming Jumat");
+            }
+        } else {
+            if (displayFrame.src !== GOOGLE_SLIDE_URL) {
+                displayFrame.src = GOOGLE_SLIDE_URL;
+                console.log("Mode: Google Slides Informasi");
+            }
+        }
+    }
+
+    // Cek perubahan setiap 5 menit agar tidak membebani internet
+    setInterval(updateDisplay, 300000); 
+    
+    // Jalankan pertama kali saat file dibuka
+    updateDisplay();
+</script>
+
+</body>
+</html>
