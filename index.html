@@ -1,52 +1,28 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Masjid Otomatis</title>
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background-color: black; }
-        iframe { width: 100%; height: 100%; border: none; }
-    </style>
-</head>
-<body>
-
-    <iframe id="displayFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
 <script>
-    // --- KONFIGURASI ---
     const YOUTUBE_CHANNEL_ID = "UCenPO76mmxnCCPbTV_5qx1A"; 
-    
-    // PERBAIKAN: Menggunakan /embed/ bukan /pub/ agar bisa tampil di GitHub
     const GOOGLE_SLIDE_URL = "https://docs.google.com/presentation/d/e/2PACX-1vRBcWn8wqXsoRIvRQ5a6j0uLMCmEjVlkvRSWQr1DJc96Uyj2IKlK1nEnrCkmJoDHafsIrfKLmHsW8Ms/embed?start=true&loop=true&delayms=10000";
     
     const YOUTUBE_LIVE_URL = `https://www.youtube.com/embed/live_stream?channel=${YOUTUBE_CHANNEL_ID}&autoplay=1&mute=1`;
-
     const displayFrame = document.getElementById('displayFrame');
 
     function updateDisplay() {
         const sekarang = new Date();
-        const hari = sekarang.getDay(); // 5 = Jumat
+        const hari = sekarang.getDay(); 
         const jam = sekarang.getHours();
         const menit = sekarang.getMinutes();
 
-        // JADWAL JUMAT: Jam 11:40 sampai 13:15 pindah ke YouTube
         if (hari === 5 && ((jam === 11 && menit >= 40) || jam === 12 || (jam === 13 && menit <= 15))) {
-            if (displayFrame.src !== YOUTUBE_LIVE_URL) {
-                displayFrame.src = YOUTUBE_LIVE_URL;
-            }
+            if (displayFrame.src !== YOUTUBE_LIVE_URL) { displayFrame.src = YOUTUBE_LIVE_URL; }
         } else {
-            // Selain waktu itu, tampilkan Slide
-            if (displayFrame.src !== GOOGLE_SLIDE_URL) {
-                displayFrame.src = GOOGLE_SLIDE_URL;
-            }
+            if (displayFrame.src !== GOOGLE_SLIDE_URL) { displayFrame.src = GOOGLE_SLIDE_URL; }
         }
     }
 
-    // Cek setiap 1 menit
-    setInterval(updateDisplay, 60000); 
-    updateDisplay();
-</script>
+    // --- TAMBAHAN BARU: REFRESH HALAMAN SETIAP 5 MENIT ---
+    setTimeout(function(){
+       location.reload();
+    }, 300000); // 300.000 ms = 5 Menit
 
-</body>
-</html>
+    updateDisplay();
+                           </script>
+                           
