@@ -1,28 +1,17 @@
-<script>
-    const YOUTUBE_CHANNEL_ID = "UCenPO76mmxnCCPbTV_5qx1A"; 
-    const GOOGLE_SLIDE_URL = "https://docs.google.com/presentation/d/e/2PACX-1vRBcWn8wqXsoRIvRQ5a6j0uLMCmEjVlkvRSWQr1DJc96Uyj2IKlK1nEnrCkmJoDHafsIrfKLmHsW8Ms/embed?start=true&loop=true&delayms=10000";
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: black; }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRBcWn8wqXsoRIvRQ5a6j0uLMCmEjVlkvRSWQr1DJc96Uyj2IKlK1nEnrCkmJoDHafsIrfKLmHsW8Ms/embed?start=true&loop=true&delayms=10000" allowfullscreen></iframe>
     
-    const YOUTUBE_LIVE_URL = `https://www.youtube.com/embed/live_stream?channel=${YOUTUBE_CHANNEL_ID}&autoplay=1&mute=1`;
-    const displayFrame = document.getElementById('displayFrame');
-
-    function updateDisplay() {
-        const sekarang = new Date();
-        const hari = sekarang.getDay(); 
-        const jam = sekarang.getHours();
-        const menit = sekarang.getMinutes();
-
-        if (hari === 5 && ((jam === 11 && menit >= 40) || jam === 12 || (jam === 13 && menit <= 15))) {
-            if (displayFrame.src !== YOUTUBE_LIVE_URL) { displayFrame.src = YOUTUBE_LIVE_URL; }
-        } else {
-            if (displayFrame.src !== GOOGLE_SLIDE_URL) { displayFrame.src = GOOGLE_SLIDE_URL; }
-        }
-    }
-
-    // --- TAMBAHAN BARU: REFRESH HALAMAN SETIAP 5 MENIT ---
-    setTimeout(function(){
-       location.reload();
-    }, 300000); // 300.000 ms = 5 Menit
-
-    updateDisplay();
-                           </script>
-                           
+    <script>
+        // Paksa refresh halaman setiap 5 menit agar data Google Sheet terupdate
+        setTimeout(function(){ location.reload(); }, 300000);
+    </script>
+</body>
+</html>
