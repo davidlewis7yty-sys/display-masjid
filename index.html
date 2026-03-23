@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <title>Display Masjid Otomatis</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: black; }
-        iframe { width: 100%; height: 100%; border: none; }
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%; 
+            overflow: hidden; 
+            background: black; 
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+        }
     </style>
 </head>
 <body>
     <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRBcWn8wqXsoRIvRQ5a6j0uLMCmEjVlkvRSWQr1DJc96Uyj2IKlK1nEnrCkmJoDHafsIrfKLmHsW8Ms/embed?start=true&loop=true&delayms=10000" allowfullscreen></iframe>
     
     <script>
-        // Paksa refresh halaman setiap 5 menit agar data Google Sheet terupdate
-        setTimeout(function(){ location.reload(); }, 300000);
+        // Fungsi untuk memaksa TV memuat ulang halaman secara otomatis
+        // Ini akan menarik data terbaru dari Google Sheets tanpa klik tombol 'Perbarui' manual
+        setTimeout(function(){ 
+            location.reload(); 
+        }, 120000); // Otomatis refresh setiap 2 menit (120.000 milidetik)
     </script>
 </body>
 </html>
